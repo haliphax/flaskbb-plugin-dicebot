@@ -1,4 +1,4 @@
-'Entry point for flaskbb-plugin-subby'
+'Entry point for flaskbb-plugin-dicebot'
 
 # stdlib
 from os.path import dirname, join
