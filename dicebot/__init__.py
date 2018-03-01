@@ -33,9 +33,9 @@ def flaskbb_evt_after_post(post, is_new):
     rollstr = post.content.replace('/roll', '').replace(' ', '')
     total = 0
     pos = 0
-    die_num = '0'
-    die_sides = '0'
-    die_mod = '0'
+    die_num = u'0'
+    die_sides = u'0'
+    die_mod = u'0'
     mode = MODE_NUM
     neg = False
 
@@ -49,9 +49,9 @@ def flaskbb_evt_after_post(post, is_new):
                 die_num += char
             elif mode == MODE_MOD:
                 die_mod += char
-        elif char.lower() == 'd':
+        elif char.lower() == u'd':
             mode = MODE_SIDES
-        elif char in '+-':
+        elif char in u'+-':
 
             if pos > 0 and mode != MODE_NUM:
                 if mode == MODE_NUM:
@@ -73,10 +73,10 @@ def flaskbb_evt_after_post(post, is_new):
 
                 roll *= (-1 if neg else 1)
                 total += roll
-                die_num = '0'
-                die_sides = '0'
-                die_mod = '0'
-            if char == '+':
+                die_num = u'0'
+                die_sides = u'0'
+                die_mod = u'0'
+            if char == u'+':
                 neg = False
             else:
                 neg = True
@@ -96,9 +96,9 @@ def flaskbb_evt_after_post(post, is_new):
 
     roll *= (-1 if neg else 1)
     total += roll
-    post.content = (':game_die: {username}\n{rollstr} = **{total}**'
+    post.content = (u':game_die: {username}\n{rollstr} = **{total}**'
         .format(username=post.user.username, rollstr=rollstr, total=total))
-    post.user = User.query.filter_by(username='Bot').one()
+    post.user = User.query.filter_by(username=u'Bot').one()
     post.save()
 
 
