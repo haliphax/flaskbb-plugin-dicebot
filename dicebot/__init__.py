@@ -20,7 +20,7 @@ def flaskbb_load_migrations():
     return join(dirname(__file__), 'migrations')
 
 
-def flaskbb_evt_after_post(post, is_new):
+def flaskbb_event_after_post(post, is_new):
     'After-post hook'
 
     if not is_new:
@@ -96,7 +96,7 @@ def flaskbb_evt_after_post(post, is_new):
 
     roll *= (-1 if neg else 1)
     total += roll
-    post.content = (u':game_die: {username}\n{rollstr} = **{total}**'
+    post.content = (u'\U0001f3b2 {username}\n{rollstr} = **{total}**'
         .format(username=post.user.username, rollstr=rollstr, total=total))
     post.user = User.query.filter_by(username=u'Bot').one()
     post.save()
