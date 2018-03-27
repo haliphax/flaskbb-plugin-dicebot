@@ -5,7 +5,7 @@ from setuptools import setup, find_packages
 setup(
     name='flaskbb-plugin-dicebot',
     packages=find_packages('.'),
-    version='1.0',
+    version='1.0.1',
     author='haliphax',
     author_email='haliphax@github.com',
     description='Allows rolling dice for play-by-post games',

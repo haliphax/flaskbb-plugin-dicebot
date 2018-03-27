@@ -20,7 +20,7 @@ def flaskbb_load_migrations():
     return join(dirname(__file__), 'migrations')
 
 
-def flaskbb_event_after_post(post, is_new):
+def flaskbb_event_post_save_after(post, is_new):
     'After-post hook'
 
     if not is_new:
