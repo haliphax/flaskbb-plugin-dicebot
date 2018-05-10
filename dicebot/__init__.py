@@ -39,7 +39,6 @@ def flaskbb_event_post_save_after(post, is_new):
     mode = MODE_NUM
     neg = False
     rollstr = rollobj.group(1)
-    rolldesc = rollobj.group(2)
 
     for pos in range(len(rollstr)):
         char = rollstr[pos]
@@ -98,11 +97,15 @@ def flaskbb_event_post_save_after(post, is_new):
 
     roll *= (-1 if neg else 1)
     total += roll
-    rolldesc = ' _{rolldesc}_' if len(rolldesc) > 0 else ''
+    rolldesc_raw = rollobj.group(2).strip()
+    rolldesc = (u'\n_{rolldesc}_'
+                .format(rolldesc=re.sub(r'[_`*<>\[\]]+|^\s*[#-]', '',
+                                        rolldesc_raw))
+                if len(rolldesc_raw) > 0 else u'')
     post.content = (
-        u'`{username}`\n\U0001f3b2 {rollstr}{rolldesc} = **{total}**'
+        u'`{username}`\n\U0001f3b2 {rollstr} = **{total}**{rolldesc}'
         .format(username=post.user.username, rollstr=rollstr,
-                rolldesc=rolldesc, total=total)
+                rolldesc=rolldesc, total=total))
     post.user = User.query.filter_by(username=u'Bot').one()
     post.save()
 
